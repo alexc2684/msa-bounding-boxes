@@ -1,4 +1,4 @@
-county_code,County Title,msa_code,MSA Title,CSA Code,CSA Title
+county_code,County Title,msa_code,msa_title,CSA Code,CSA Title
 01001,"Autauga County, Alabama",C3386,"Montgomery, AL MSA",,
 01003,"Baldwin County, Alabama",C1930,"Daphne-Fairhope-Foley, AL MSA",CS380,"Mobile-Daphne-Fairhope, AL CSA"
 01007,"Bibb County, Alabama",C1382,"Birmingham-Hoover, AL MSA",CS142,"Birmingham-Hoover-Talladega, AL CSA"
