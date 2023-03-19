@@ -34,19 +34,20 @@ def get_msa_bounding_box(df, msa):
     # get the rows for the MSA
     rows = df[df['msa_code'] == msa]
     msa_title = rows.iloc[0]['msa_title']
+    msa_state = rows.iloc[0]['STATE_NAME']
 
     # get the min and max values for longitude and latitude
-    min_long = rows['xmin'].max()
-    max_long = rows['xmax'].min()
+    min_long = rows['xmin'].min()
+    max_long = rows['xmax'].max()
     min_lat = rows['ymin'].min()
     max_lat = rows['ymax'].max()
     # get the center of the MSA
     center_long = (float(min_long) + float(max_long)) / 2
     center_lat = (float(min_lat) + float(max_lat)) / 2
     # get the distance from the center to the furthest point in the MSA
-    radius = max(abs(center_long - min_long), abs(center_lat - min_lat))*60*1.15 # lat/long to nautical miles to miles
+    radius = int(max(abs(center_long - min_long)*50, abs(center_lat - min_lat)*70)*1.15*1609) # lat/long to nautical miles to miles
     # return the bounding box
-    return [msa, msa_title, min_long, min_lat, max_long, max_lat, center_long, center_lat, radius]
+    return [msa, msa_title, msa_state, min_long, min_lat, max_long, max_lat, center_long, center_lat, radius]
 
 
 
@@ -88,7 +89,7 @@ def write_msa_bounding_boxes(df, filename):
         bounding_boxes.append(bounding_box)
     # create a dataframe from the bounding boxes
     df = pd.DataFrame(bounding_boxes, columns=[
-                      'msa_code', 'msa_title', 'min_long', 'min_lat', 'max_long', 'max_lat', 'center_long', 'center_lat', 'radius'])
+                      'msa_code', 'msa_title', 'state', 'min_long', 'min_lat', 'max_long', 'max_lat', 'center_long', 'center_lat', 'radius'])
     # write the csv file
     write_csv(df, filename)
 
